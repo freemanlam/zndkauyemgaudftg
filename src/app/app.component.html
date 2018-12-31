@@ -1,0 +1,34 @@
+<div class="app-controls-wrapper">
+  <app-controls *ngIf="!!map">
+    <mat-form-field *ngFor="let stop of stops">
+      <input type="text" matInput [placeholder]="stop.description" [(ngModel)]="stop.address" appLocationInput [map]="map"
+        (locationChanged)="onLocationSelected(stop, $event)">
+      <button type="button" mat-icon-button matSuffix *ngIf="stop.address" (click)="resetStop(stop)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div *ngIf="result">
+      <p class="route-distance">Total distance: {{result.total_distance}}</p>
+      <p class="route-time">Total time: {{result.total_time}}</p>
+    </div>
+
+    <div class="app-actions">
+      <ng-container *ngIf="!processing else processingTpl">
+        <button type="submit" mat-flat-button color="primary" (click)="onSubmitRoute()">
+          {{!errorResult ? 'Submit' : 'Re-Submit'}}
+        </button>
+        <button type="reset" mat-stroked-button (click)="resetForm()">
+          Reset
+        </button>
+      </ng-container>
+
+      <ng-template #processingTpl>
+        <mat-spinner diameter="30"></mat-spinner>
+      </ng-template>
+    </div>
+  </app-controls>
+</div>
+
+<app-map #appMap [config]="mapConfig" [zoomOffset]="zoomOffset" (mapInit)="setMap($event)">
+</app-map>

@@ -1,0 +1,12 @@
+app-controls {
+  background: #fff;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: block;
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-controls-content {
+  margin: 1em;
+}

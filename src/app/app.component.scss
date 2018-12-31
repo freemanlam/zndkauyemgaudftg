@@ -1,0 +1,42 @@
+$app-controls-margin-desktop: 2em;
+$app-controls-margin-mobile: 1em;
+
+.app-controls-wrapper {
+  position: fixed;
+  top: $app-controls-margin-desktop;
+  left: $app-controls-margin-desktop;
+  right: $app-controls-margin-desktop;
+  z-index: 1;
+}
+
+app-controls {
+  max-width: 500px;
+  max-height: 60vh;
+  margin: 0 auto;
+
+  .mat-form-field {
+    display: block;
+  }
+}
+
+.app-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  > button {
+    margin-right: 1em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .app-controls-wrapper {
+    top: $app-controls-margin-mobile;
+    left: $app-controls-margin-mobile;
+    right: $app-controls-margin-mobile;
+  }
+}
