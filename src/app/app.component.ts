@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material';
 import { RouteStop } from './models';
 import { ApiService, GetRouteResponse } from './api';
 import { MapComponent } from './map/map.component';
+import { DirectionsService } from './directions.service';
+import { DirectionsRendererService } from './directions-renderer.service';
 
 /**
  * The app
@@ -39,7 +41,9 @@ export class AppComponent {
 
   constructor(
     private snackBar: MatSnackBar,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private directionsService: DirectionsService,
+    private directionsRenderer: DirectionsRendererService
   ) { }
 
   setMap(map: google.maps.Map) {
@@ -88,13 +92,13 @@ export class AppComponent {
         this.processing = false;
         this.result = res;
         this.errorResult = null;
+        this.stops.forEach(s => this.resetStop(s));
 
         // draw route
         const path: google.maps.LatLngLiteral[] = res.path.map(p => ({
           lat: parseFloat(p[0]), lng: parseFloat(p[1])
         }));
-        this.drawRoute(path);
-        this.mapComponent.zoomRoute(path);
+        this.getDirections(path);
       }, error => {
         // update result
         this.processing = false;
@@ -105,6 +109,28 @@ export class AppComponent {
         const errorMessage = (typeof error.error === 'string') ? error.error : 'Unknown Error.';
         this.showMessage(errorMessage);
       });
+  }
+
+  private getDirections(path: google.maps.LatLngLiteral[]) {
+    return this.directionsService.route({
+      origin: path[0],
+      destination: path[path.length - 1],
+      waypoints: path
+        .filter((p, index) => index !== 0 && index < path.length)
+        .map(p => ({
+          location: p,
+          stopover: false
+        })),
+      travelMode: google.maps.TravelMode.DRIVING
+    })
+      .subscribe(
+        res => {
+          this.directionsRenderer.setMap(this.map);
+          this.directionsRenderer.setDirections(res);
+          setTimeout(() => this.map.setZoom(this.map.getZoom() - 1), 2);
+        },
+        error => this.showMessage(error)
+      );
   }
 
   resetStop(stop: RouteStop) {
@@ -121,6 +147,7 @@ export class AppComponent {
     }
     this.result = null;
     this.errorResult = null;
+    this.directionsRenderer.setMap(null);
   }
 
   private showMessage(message: string) {

@@ -177,9 +177,9 @@ describe('AppComponent', () => {
           fixture.detectChanges();
           const compiled = fixture.debugElement.nativeElement;
           const distanceDiv = compiled.querySelector('.route-distance');
-          expect(distanceDiv.textContent).toContain('Total distance: 20000');
+          expect(distanceDiv.textContent).toContain('Distance: 20000');
           const timeDiv = compiled.querySelector('.route-time');
-          expect(timeDiv.textContent).toContain('Total time: 1800');
+          expect(timeDiv.textContent).toContain('Time: 1800');
           done();
         });
       });

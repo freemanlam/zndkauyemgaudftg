@@ -33,6 +33,16 @@ app-controls {
   }
 }
 
+.app-result {
+  display: flex;
+  flex-direction: row;
+  
+  p {
+    flex: 1;
+    text-align: center;
+  }
+}
+
 @media (max-width: 500px) {
   .app-controls-wrapper {
     top: $app-controls-margin-mobile;
