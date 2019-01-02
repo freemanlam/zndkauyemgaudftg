@@ -19,22 +19,24 @@ Demo: [https://zndkauyemgaudftg.firebaseapp.com/](https://zndkauyemgaudftg.fireb
 src/
   app/
     api/
-      api.interceptor  - Handle every http call
-      api.service      - Api connector service
-      dto.ts           - Data transfer object of api
-    controls/          - Wrapper element with styles
-    location-input/    - Provide autocomplete result from google maps api when input value change
-    map/               - Wrapped google maps instance
-    models/            - Type interfaces used in app
-    app.component      - The app
-    app.module.ts      - The root module
+      api.interceptor   - Handle every http call
+      api.service       - Api connector service
+      dto.ts            - Data transfer object of api
+    controls/           - Wrapper element with styles
+    location-input/     - Provide autocomplete result from google maps api when input value change
+    map/                - Wrapped google maps instance
+    models/             - Type interfaces used in app
+    app.component       - The app
+    app.module.ts       - The root module
+    directions-renderer - Wrapper of google.maps.DirectionsRenderer
+    directions.service  - Wrapper of google.maps.DirectionsService
   assets/
-    icons/             - PWA icons
-  environments/        - Enviroments variables for different targets
-  google-maps-mocks.ts - Mock object of google maps for test
-  index.html           - App entry point
-  karma.conf.js        - Karma config
-  manifest.json        - PWA manifest
+    icons/              - PWA icons
+  environments/         - Enviroments variables for different targets
+  google-maps-mocks.ts  - Mock object of google maps for test
+  index.html            - App entry point
+  karma.conf.js         - Karma config
+  manifest.json         - PWA manifest
 ```
 
 ## Installation

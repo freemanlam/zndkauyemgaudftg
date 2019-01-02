@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Wrapper of google.maps.DirectionsRenderer
+ */
 @Injectable({
   providedIn: 'root'
 })
